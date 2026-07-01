@@ -6,144 +6,164 @@
 <title>FizzLab — Sparkling Prebiotic Soda</title>
 <style>
   :root{
-    --cream:#FAF3E7; --ink:#2B2622; --pink:#E14C73; --pink-deep:#C2375C;
-    --line:#ECE0CC; --muted:#8C7E6A;
+    --cream:#FBF3E2; --ink:#1F3D2F; --green:#1F4733; --green-btn:#1C3A2A;
+    --coral:#E15A3C; --line:#EADBC4; --muted:#7C8A7E; --sale:#2E6B4F;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
   body{font-family:'Poppins','Helvetica Neue',Arial,sans-serif;background:var(--cream);color:var(--ink);line-height:1.5;}
-  .wrap{max-width:1240px;margin:0 auto;padding:0 26px;}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 28px;}
 
+  .promobar{background:#F3C6C0;color:#16261d;text-align:center;font-size:13.5px;font-weight:600;padding:11px;}
+  .promobar a{color:#16261d;}
 
+  header{background:var(--cream);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:100;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;max-width:1280px;margin:0 auto;}
+  .nav-left{display:flex;gap:30px;font-size:15px;font-weight:600;color:var(--green);}
+  .logo{font-weight:800;font-size:26px;letter-spacing:.04em;color:var(--green);font-family:Georgia,serif;}
+  .nav-right{display:flex;gap:24px;align-items:center;font-size:15px;font-weight:600;color:var(--green);}
+  .cartchip{display:flex;align-items:center;gap:8px;font-size:14px;}
+  .cartcount{background:var(--coral);color:#fff;min-width:23px;height:23px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;padding:0 6px;}
 
-  .promobar{background:#F2C84B;color:#3a2c10;text-align:center;font-size:13px;font-weight:600;padding:9px;}
+  .tabs{display:flex;gap:12px;justify-content:center;padding:22px;flex-wrap:wrap;}
+  .tab{border:1.5px solid var(--green);border-radius:30px;padding:9px 22px;font-size:14px;font-weight:600;color:var(--green);background:transparent;}
+  .tab.on{background:var(--green);color:#fff;}
 
-  header{position:sticky;top:0;z-index:100;background:rgba(250,243,231,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:15px 26px;max-width:1240px;margin:0 auto;}
-  .logo{font-weight:800;font-size:23px;letter-spacing:-.03em;color:var(--pink);}
-  .logo small{display:block;font-size:9px;letter-spacing:.26em;color:var(--muted);font-weight:600;}
-  .cartchip{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600;}
-  .cartcount{background:var(--pink);color:#fff;min-width:24px;height:24px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;font-size:13px;padding:0 7px;}
+  .hero{text-align:center;padding:14px 24px 8px;}
+  .hero h1{font-size:34px;font-weight:800;letter-spacing:-.01em;font-family:Georgia,serif;}
+  .task{max-width:620px;margin:14px auto 0;font-size:15.5px;color:#4b5a4f;}
+  .pillrow{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap;}
+  .pill{background:#fff;border:1px solid var(--line);border-radius:30px;padding:8px 16px;font-size:13px;font-weight:600;color:#4b5a4f;}
+  .pill b{color:var(--coral);}
 
-  .hero{text-align:center;padding:46px 24px 24px;}
-  .kicker{font-size:11px;letter-spacing:.30em;color:var(--pink);font-weight:700;text-transform:uppercase;}
-  .hero h1{font-size:40px;line-height:1.08;margin:13px auto 0;max-width:680px;letter-spacing:-.02em;font-weight:800;}
-  .task{max-width:610px;margin:16px auto 0;font-size:16px;color:#5d5346;}
-  .pillrow{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap;}
-  .pill{background:#fff;border:1px solid var(--line);border-radius:30px;padding:8px 16px;font-size:13px;font-weight:600;color:#5d5346;}
-  .pill b{color:var(--pink);}
-
-  #progress{position:sticky;top:62px;z-index:90;background:rgba(250,243,231,.96);backdrop-filter:blur(8px);padding:12px 0;border-bottom:1px solid var(--line);}
-  .prog-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;}
-  .prog-track{flex:1;height:10px;background:#eedfc8;border-radius:6px;overflow:hidden;}
-  .prog-fill{height:100%;width:0;background:linear-gradient(90deg,#F2C84B,var(--pink));transition:width .35s ease;}
+  #progress{position:sticky;top:62px;z-index:90;background:rgba(251,243,226,.96);backdrop-filter:blur(8px);padding:12px 0;border-bottom:1px solid var(--line);margin-top:14px;}
+  .prog-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;max-width:1280px;margin:0 auto;padding:0 28px;}
+  .prog-track{flex:1;height:9px;background:#e8dcc6;border-radius:6px;overflow:hidden;}
+  .prog-fill{height:100%;width:0;background:linear-gradient(90deg,#E8A93B,var(--coral));transition:width .35s ease;}
   .prog-label{font-size:14px;font-weight:700;white-space:nowrap;}
-  .prog-label span{color:var(--pink);}
-  #checkout{background:var(--pink);color:#fff;border:none;border-radius:28px;padding:11px 24px;font-weight:700;font-size:14px;cursor:pointer;opacity:.4;pointer-events:none;transition:opacity .2s;white-space:nowrap;}
+  .prog-label span{color:var(--coral);}
+  #checkout{background:var(--green);color:#fff;border:none;border-radius:28px;padding:11px 24px;font-weight:700;font-size:14px;cursor:pointer;opacity:.4;pointer-events:none;transition:opacity .2s;white-space:nowrap;}
   #checkout.ready{opacity:1;pointer-events:auto;}
 
-  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;padding:34px 0 80px;}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px 26px;padding:30px 0 80px;}
   @media(max-width:1040px){.grid{grid-template-columns:repeat(3,1fr);}}
   @media(max-width:720px){.grid{grid-template-columns:repeat(2,1fr);}}
 
-  .card{background:#fff;border-radius:22px;overflow:hidden;display:flex;flex-direction:column;
-    box-shadow:0 4px 16px rgba(80,55,30,.06);transition:transform .18s ease, box-shadow .18s ease;position:relative;}
-  .tile{position:relative;aspect-ratio:1/1.04;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:22px 22px 0 0;}
-  .can{position:relative;width:96px;height:166px;border-radius:15px/19px;z-index:2;
-    box-shadow:inset -11px 0 20px rgba(0,0,0,.18), inset 11px 0 15px rgba(255,255,255,.25), 0 10px 18px rgba(0,0,0,.18);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;}
-  .can .lid{position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:80px;height:10px;border-radius:50%;background:#cfcac3;box-shadow:0 2px 3px rgba(0,0,0,.2);}
-  .can .brand{font-size:8px;font-weight:800;letter-spacing:.14em;opacity:.9;text-transform:uppercase;}
-  .can .flavor{font-size:12.5px;font-weight:800;text-align:center;line-height:1.1;padding:0 8px;margin-top:4px;text-shadow:0 1px 2px rgba(0,0,0,.2);}
-  .can .fizz{font-size:7px;letter-spacing:.12em;opacity:.85;margin-top:5px;text-transform:uppercase;}
-  .badge{position:absolute;top:12px;left:12px;background:rgba(255,255,255,.9);color:#3a2c10;font-size:9.5px;font-weight:700;letter-spacing:.06em;padding:4px 9px;border-radius:20px;text-transform:uppercase;z-index:3;}
+  /* Olipop-style: uniform cream bg, can image centered, hover reveals Add button */
+  .card{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;padding-top:8px;}
+  .stage{position:relative;width:100%;display:flex;align-items:center;justify-content:center;overflow:hidden; border-radius: 5%;}
+  .can-img{max-height:100%;max-width:100%;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 10px 16px rgba(60,40,20,.16));transition:transform .2s ease;z-index:2;}
+  .card:hover .can-img{transform:scale(1.03);}
 
-  .info{position:absolute;inset:0;background:rgba(28,22,18,.93);color:#fff;padding:18px;display:flex;flex-direction:column;
-    justify-content:center;text-align:center;opacity:0;transition:opacity .18s ease;z-index:5;pointer-events:none;border-radius:22px 22px 0 0;}
-  .info .nm{font-size:16px;font-weight:800;margin-bottom:7px;}
-  .info .notes{font-size:13px;line-height:1.55;color:#f0e6d6;}
-  .tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-  body.mode-hover .card:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(120,70,50,.16);}
-  body.mode-hover .card:hover .info{opacity:1;}
+  /* fallback CSS can if image missing */
+  .can-fallback{height:88%;aspect-ratio:.62;border-radius:16px/20px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;z-index:2;
+    box-shadow:inset -12px 0 22px rgba(0,0,0,.18), inset 12px 0 16px rgba(255,255,255,.22), 0 10px 18px rgba(0,0,0,.16);position:relative;}
+  .can-fallback .lid{position:absolute;top:-5px;left:50%;transform:translateX(-50%);width:74%;height:9px;border-radius:50%;background:#cfcac3;}
+  .can-fallback .bn{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;opacity:.9;}
+  .can-fallback .fn{font-size:13px;font-weight:800;padding:0 8px;margin-top:4px;line-height:1.1;text-shadow:0 1px 2px rgba(0,0,0,.2);}
 
-  .static-notes{display:none;margin-top:-2px;}
-  .static-notes p{font-size:12px;color:#6a5f4f;line-height:1.45;}
-  body.mode-static .static-notes{display:block;}
+  /* SALE starburst badge */
+  .sale{position:absolute;top:8px;right:14px;background:var(--sale);color:#fff;font-size:12px;font-weight:700;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:4;
+    clip-path:polygon(50% 0%,61% 17%,79% 9%,79% 30%,98% 35%,85% 50%,98% 65%,79% 70%,79% 91%,61% 83%,50% 100%,39% 83%,21% 91%,21% 70%,2% 65%,15% 50%,2% 35%,21% 30%,21% 9%,39% 17%);}
 
-  .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:10px;flex:1;}
-  .name{font-size:16px;font-weight:800;letter-spacing:-.01em;}
-  .sub{font-size:12px;color:var(--muted);margin-top:5px;font-weight:600;}
-  .foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;}
-  .qty{display:flex;align-items:center;border:1.5px solid var(--ink);border-radius:24px;overflow:hidden;}
-  .qty button{width:30px;height:32px;border:none;background:#fff;font-size:17px;cursor:pointer;color:var(--ink);font-weight:700;}
-  .qty button:hover{background:#f3ece0;}
-  .qty .n{min-width:24px;text-align:center;font-weight:800;font-size:14px;}
-  .addbtn{flex:1;background:var(--ink);color:#fff;border:none;border-radius:24px;padding:10px;font-weight:700;font-size:13px;cursor:pointer;}
-  .addbtn:hover{background:var(--pink);}
-  .card.selected{outline:2.5px solid var(--pink);outline-offset:-2.5px;}
+  /* HOVER-revealed Add button (real Olipop mechanic) */
+  .add-hover{position:absolute;bottom:6%;left:50%;transform:translateX(-50%);background:var(--green-btn);color:#fff;border:none;
+    border-radius:30px;padding:13px 30px;font-weight:700;font-size:14px;cursor:pointer;white-space:nowrap;z-index:5;
+    opacity:0;transition:opacity .18s ease, transform .18s ease;pointer-events:none;box-shadow:0 6px 16px rgba(0,0,0,.2);}
+  body.mode-hover .card:hover .add-hover{opacity:1;pointer-events:auto;}
+  .add-hover:hover{background:var(--coral);}
+  /* CLICK mode: clicking a card toggles .revealed, which shows the same note+add */
+  body.mode-click .stage{cursor:pointer;}
+  body.mode-click .card.revealed .add-hover{opacity:1;pointer-events:auto;}
+  /* STATIC control: same add button, always visible, identical position */
+  body.mode-static .add-hover{opacity:1;pointer-events:auto;}
+
+  /* hover-revealed flavor note (the "information-revealing" part of the manipulation) */
+  .note-hover{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:84%;background:rgba(22,38,29,.93);color:#f0ead8;
+    font-size:12px;line-height:1.45;border-radius:12px;padding:10px 12px;z-index:5;opacity:0;transition:opacity .18s ease;pointer-events:none;}
+  body.mode-hover .card:hover .note-hover{opacity:1;}
+  body.mode-click .card.revealed .note-hover{opacity:1;}
+  body.mode-static .note-hover{opacity:1;}
+
+  .label{margin-top:6px;font-size:12px;color:var(--muted);font-weight:600;}
+  .name{font-size:17px;font-weight:700;font-family:Georgia,serif;margin-top:2px;color:var(--green);}
+  .price{font-size:13px;color:var(--muted);margin-top:1px;}
+
+  /* old bottom static elements no longer used (all conditions use the top note + add) */
+  .static-note{display:none;}
+  .add-static{display:none;}
+  body.mode-static .static-note{display:none;}
+  body.mode-static .add-static{display:none;}
+
+  .qty{display:none;align-items:center;border:1.5px solid var(--green);border-radius:24px;overflow:hidden;margin-top:9px;}
+  .qty.show{display:flex;}
+  .qty button{width:32px;height:32px;border:none;background:#fff;font-size:17px;cursor:pointer;color:var(--green);font-weight:700;}
+  .qty button:hover{background:#eef3ee;}
+  .qty .n{min-width:26px;text-align:center;font-weight:800;font-size:14px;}
+  .card.selected .name{color:var(--coral);}
 
   #survey{display:none;max-width:680px;margin:0 auto;padding:48px 24px 90px;}
   #survey.show{display:block;}
-  #survey h2{font-size:26px;margin-bottom:6px;letter-spacing:-.01em;font-weight:800;}
+  #survey h2{font-size:26px;margin-bottom:6px;font-weight:800;font-family:Georgia,serif;color:var(--green);}
   #survey .sub2{color:var(--muted);margin-bottom:24px;font-size:15px;}
-  .sechead{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--pink);font-weight:700;margin:22px 0 8px;}
+  .sechead{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--coral);font-weight:700;margin:22px 0 8px;}
   .q{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px 19px;margin-bottom:14px;}
   .q .qt{font-weight:600;font-size:15px;margin-bottom:12px;}
   .scale{display:flex;gap:6px;justify-content:space-between;}
   .scale label{flex:1;text-align:center;cursor:pointer;}
   .scale input{display:none;}
-  .scale .box{border:1px solid var(--line);border-radius:8px;padding:9px 0;font-size:14px;font-weight:600;color:#6a5f4f;transition:all .12s;}
-  .scale input:checked+.box{background:var(--pink);border-color:var(--pink);color:#fff;}
-  .ends{display:flex;justify-content:space-between;font-size:11px;color:#b8ab92;margin-top:8px;font-weight:500;letter-spacing:.01em;}
+  .scale .box{border:1px solid var(--line);border-radius:8px;padding:9px 0;font-size:14px;font-weight:600;color:#6a7a6e;transition:all .12s;}
+  .scale input:checked+.box{background:var(--green);border-color:var(--green);color:#fff;}
+  .ends{display:flex;justify-content:space-between;font-size:11px;color:#a0b0a4;margin-top:8px;font-weight:500;}
   .demo input{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px;font-size:15px;font-family:inherit;background:#fff;}
   .gbtns{display:flex;gap:8px;flex-wrap:wrap;}
   .gbtns button{flex:1;min-width:90px;border:1px solid var(--line);background:#fff;border-radius:22px;padding:10px;font-size:14px;cursor:pointer;font-family:inherit;}
-  .gbtns button.on{background:var(--pink);color:#fff;border-color:var(--pink);}
-  .submit{width:100%;background:var(--pink);color:#fff;border:none;border-radius:28px;padding:15px;font-size:16px;font-weight:700;cursor:pointer;margin-top:8px;}
-  .submit:hover{background:var(--pink-deep);}
-  .err{color:var(--pink);font-size:13px;margin-top:8px;display:none;}
+  .gbtns button.on{background:var(--green);color:#fff;border-color:var(--green);}
+  .submit{width:100%;background:var(--green);color:#fff;border:none;border-radius:28px;padding:15px;font-size:16px;font-weight:700;cursor:pointer;margin-top:8px;}
+  .err{color:var(--coral);font-size:13px;margin-top:8px;display:none;}
   .hint{font-size:12px;color:var(--muted);text-align:center;margin-top:8px;}
 
   #done{display:none;text-align:center;padding:90px 24px;}
   #done.show{display:block;}
-  #done h2{font-size:30px;margin-bottom:10px;font-weight:800;}
+  #done h2{font-size:30px;margin-bottom:10px;font-weight:800;font-family:Georgia,serif;color:var(--green);}
   #done p{color:var(--muted);font-size:16px;}
 </style>
 </head>
 <body>
 
 
-
 <div id="store">
-  <div class="promobar">Sparkling prebiotic soda · 2–5g sugar · made with plant fiber</div>
+  <div class="promobar">Sparkling prebiotic soda · 2–5g sugar · 9g fiber · made with plant fiber</div>
   <header>
     <div class="nav">
-      <div class="logo">FizzLab<small>SPARKLING PREBIOTIC SODA</small></div>
-      <div class="cartchip">Selected <span class="cartcount" id="cartcount">0</span> / 7</div>
+      <div class="nav-left"><span>Shop</span><span>Learn</span><span>Subscribe</span></div>
+      <div class="logo">FizzLab</div>
+      <div class="nav-right"><span>Find a store</span><div class="cartchip">Cart <span class="cartcount" id="cartcount">0</span></div></div>
     </div>
   </header>
 
+  <div class="tabs">
+    <button class="tab on">9g Fiber</button>
+    <button class="tab">6g Fiber</button>
+    <button class="tab">Limited Edition</button>
+    <button class="tab">Variety Packs</button>
+  </div>
+
   <div class="hero">
-    <div class="kicker">Shop all flavors</div>
     <h1>Choose 7 drinks for the week ahead.</h1>
-    <p class="task">Imagine you're picking out drinks to keep at home for the next week. Browse the flavors below and choose <b>7 cans</b> to take home. Pick whichever you like, and as many of each as you want.</p>
+    <p class="task">Imagine you're picking out drinks to keep at home for the next week. Browse the flavors and choose <b>7 cans</b> to take home. Pick whichever you like, and as many of each as you want.</p>
     <div class="pillrow">
-      <span class="pill">20 flavors</span>
-      <span class="pill">Choose <b>7 cans</b></span>
-      <span class="pill">All cans <b>$2.50</b></span>
+      <span class="pill">20 flavors</span><span class="pill">Choose <b>7 cans</b></span><span class="pill">All cans <b>$2.50</b></span>
     </div>
   </div>
 
-  <div class="wrap">
-    <div id="progress">
-      <div class="prog-inner">
-        <div class="prog-label"><span id="picked">0</span> of 7 chosen</div>
-        <div class="prog-track"><div class="prog-fill" id="progfill"></div></div>
-        <button id="checkout" onclick="goSurvey()">Continue →</button>
-      </div>
-    </div>
-    <div class="grid" id="grid"></div>
-  </div>
+  <div id="progress"><div class="prog-inner">
+    <div class="prog-label"><span id="picked">0</span> of 7 chosen</div>
+    <div class="prog-track"><div class="prog-fill" id="progfill"></div></div>
+    <button id="checkout" onclick="goSurvey()">Continue →</button>
+  </div></div>
+
+  <div class="wrap"><div class="grid" id="grid"></div></div>
 </div>
 
 <div id="survey">
@@ -158,12 +178,12 @@
         <button onclick="pickGender(this,'Non-binary')">Non-binary</button>
         <button onclick="pickGender(this,'Prefer not to say')">Prefer not to say</button>
       </div></div>
-    <div class="q"><div class="qt">What is your age?</div>
-      <input type="number" id="age" min="18" max="99" placeholder="Years" inputmode="numeric"
-        oninput="eventCount++;this.value=this.value.replace(/[^0-9]/g,'').slice(0,2);validateAge(false)"
-        onblur="validateAge(true)">
-      <div class="err" id="ageerr">Please enter an age between 18 and 99.</div>
-    </div>
+      <div class="q"><div class="qt">What is your age?</div>
+        <input type="number" id="age" min="18" max="99" placeholder="Years" inputmode="numeric"
+          oninput="eventCount++;this.value=this.value.replace(/[^0-9]/g,'').slice(0,2);validateAge(false)"
+          onblur="validateAge(true)">
+        <div class="err" id="ageerr">Please enter an age between 18 and 99.</div>
+      </div>
   </div>
   <button class="submit" onclick="submitSurvey()">Complete study</button>
   <div class="err" id="surveyerr">Please answer all questions before continuing.</div>
@@ -174,41 +194,33 @@
 
 <script>
 const FLAVORS = [
-  {id:1, name:"Vintage Cola",    c1:"#7a2e1e",c2:"#4a1810",tile:"#f0d9cf", notes:"A smooth, old-school cola with deep caramel notes and a nostalgic soda-fountain finish. Classic, crisp, and made for burger nights, road trips, and backyard BBQs."},
-  {id:2, name:"Root Beer",       c1:"#5b3a23",c2:"#321f12",tile:"#e8dccb", notes:"Creamy, frothy, and bold, this root beer brings that classic American diner flavor with a rich vanilla-spice finish. It tastes like a float waiting to happen."},
-  {id:3, name:"Cream Soda",      c1:"#cf9f4e",c2:"#9a7330",tile:"#f6ecd5", notes:"Soft, sweet, and velvety with warm vanilla notes, Cream Soda is a smooth throwback to the golden age of soda shops. Lightly bubbly and endlessly nostalgic."},
-  {id:4, name:"Cherry Cola",     c1:"#9c1f2e",c2:"#5e0f1a",tile:"#f4d2d6", notes:"Juicy cherry meets classic cola for a bold, bright twist on an American favorite. Sweet, fizzy, and perfect for anyone who loves a little extra pop."},
-  {id:5, name:"Wild Strawberry", c1:"#e26d7a",c2:"#b23f50",tile:"#fbe0e3", notes:"Bursting with ripe strawberry flavor and a fresh-picked sweetness, this soda feels like summer in a can. Bright, playful, and made to stand out."},
-  {id:6, name:"Concord Grape",   c1:"#6b3fa0",c2:"#42206a",tile:"#e6dcf2", notes:"Rich, jammy Concord grape flavor with a bold purple punch and a smooth sparkling finish. It's sweet, nostalgic, and unmistakably American."},
-  {id:7, name:"Blackberry",      c1:"#553a6e",c2:"#2e1f42",tile:"#e2dbec", notes:"Deep, juicy blackberry flavor with a slightly tart edge and a smooth berry finish. A bold, grown-up berry soda with craft-market appeal."},
-  {id:8, name:"Raspberry",       c1:"#c23b6a",c2:"#7e1f44",tile:"#f6d8e3", notes:"Bright raspberry flavor with a lively tart-sweet sparkle. Refreshing, colorful, and perfect for customers who want something fruity but not ordinary."},
-  {id:9, name:"Blood Orange",    c1:"#e0552b",c2:"#a8331a",tile:"#fbddcf", notes:"Tangy, bold, and citrusy with a deeper orange bite, Blood Orange brings a premium twist to classic fruit soda. Vibrant, sharp, and made for modern soda lovers."},
-  {id:10,name:"Lemon Lime",      c1:"#cdc73f",c2:"#94992a",tile:"#f3f2cf", notes:"Crisp lemon and zesty lime come together in a clean, refreshing sparkle. Bright, familiar, and perfect for hot days, picnics, and easy sipping."},
-  {id:11,name:"Ruby Grapefruit", c1:"#e8748a",c2:"#c2455f",tile:"#fbe0e6", notes:"A sparkling pink grapefruit soda with a tangy citrus bite and a clean, refreshing finish. Bright, slightly tart, and made for shoppers who love bold flavor."},
-  {id:12,name:"Tangerine",       c1:"#f0972c",c2:"#c26910",tile:"#fce8d2", notes:"Sweet, juicy tangerine flavor with a sunny citrus aroma and smooth bubbly finish. A cheerful orange soda with a fresh, premium twist."},
-  {id:13,name:"Ginger Ale",      c1:"#d8b34a",c2:"#a3811f",tile:"#f6edd2", notes:"Warm ginger spice meets golden bubbles for a crisp, refreshing soda with a gentle kick. Classic enough for everyday sipping, bold enough to feel special."},
-  {id:14,name:"Cucumber Mint",   c1:"#8bbf6e",c2:"#5a8a3e",tile:"#e4f0d9", notes:"Cool cucumber and fresh mint create a clean, spa-like soda that feels crisp and refreshing. Light, modern, and perfect for a more elevated soda experience."},
-  {id:15,name:"Lavender Honey",  c1:"#9d7fb0",c2:"#6e5286",tile:"#ece2f2", notes:"Soft lavender notes meet golden honey sweetness for a smooth, floral soda with a calming finish. Unique, elegant, and perfect for craft beverage fans."},
-  {id:16,name:"Hibiscus",        c1:"#c2335f",c2:"#841f40",tile:"#f6d6e0", notes:"Bright hibiscus flavor with a floral, slightly tart sparkle and a beautiful berry-like finish. Bold, colorful, and made to catch attention on the shelf."},
-  {id:17,name:"Pineapple",       c1:"#f0c33c",c2:"#c2920e",tile:"#fcf0cf", notes:"Juicy pineapple flavor with a tropical sparkle and a sunny golden finish. Sweet, bright, and ready for beach days, cookouts, and summer cravings."},
-  {id:18,name:"Mango",           c1:"#f5a23c",c2:"#d9701f",tile:"#fce8d0", notes:"Smooth, ripe mango flavor with a rich tropical sweetness and fizzy finish. Bold, juicy, and perfect for customers looking for a vacation-in-a-can vibe."},
-  {id:19,name:"Coconut",         c1:"#7fb6a1",c2:"#4d8c77",tile:"#e0eee8", notes:"Creamy coconut flavor with a breezy tropical finish and smooth sparkling lift. Light, beachy, and different from the usual soda aisle choices."},
-  {id:20,name:"Passionfruit",    c1:"#e8b04a",c2:"#c27a1f",tile:"#f9ecd2", notes:"Bright, tangy passionfruit flavor with tropical sweetness and a bold sparkling finish. Exotic, energetic, and made for adventurous soda drinkers."},
+  {id:1, name:"Vintage Cola",    c1:"#7a2e1e",c2:"#4a1810", notes:"A smooth, old-school cola with deep caramel notes and a nostalgic soda-fountain finish. Classic, crisp, and made for burger nights, road trips, and backyard BBQs."},
+  {id:2, name:"Root Beer",       c1:"#5b3a23",c2:"#321f12", notes:"Creamy, frothy, and bold, this root beer brings that classic American diner flavor with a rich vanilla-spice finish. It tastes like a float waiting to happen."},
+  {id:3, name:"Cream Soda",      c1:"#cf9f4e",c2:"#9a7330", notes:"Soft, sweet, and velvety with warm vanilla notes, Cream Soda is a smooth throwback to the golden age of soda shops. Lightly bubbly and endlessly nostalgic."},
+  {id:4, name:"Cherry Cola",     c1:"#9c1f2e",c2:"#5e0f1a", notes:"Juicy cherry meets classic cola for a bold, bright twist on an American favorite. Sweet, fizzy, and perfect for anyone who loves a little extra pop."},
+  {id:5, name:"Wild Strawberry", c1:"#e26d7a",c2:"#b23f50", notes:"Bursting with ripe strawberry flavor and a fresh-picked sweetness, this soda feels like summer in a can. Bright, playful, and made to stand out."},
+  {id:6, name:"Concord Grape",   c1:"#6b3fa0",c2:"#42206a", notes:"Rich, jammy Concord grape flavor with a bold purple punch and a smooth sparkling finish. It's sweet, nostalgic, and unmistakably American."},
+  {id:7, name:"Blackberry",      c1:"#553a6e",c2:"#2e1f42", notes:"Deep, juicy blackberry flavor with a slightly tart edge and a smooth berry finish. A bold, grown-up berry soda with craft-market appeal."},
+  {id:8, name:"Raspberry",       c1:"#c23b6a",c2:"#7e1f44", notes:"Bright raspberry flavor with a lively tart-sweet sparkle. Refreshing, colorful, and perfect for customers who want something fruity but not ordinary."},
+  {id:9, name:"Blood Orange",    c1:"#e0552b",c2:"#a8331a", notes:"Tangy, bold, and citrusy with a deeper orange bite, Blood Orange brings a premium twist to classic fruit soda. Vibrant, sharp, and made for modern soda lovers."},
+  {id:10,name:"Lemon Lime",      c1:"#cdc73f",c2:"#94992a", notes:"Crisp lemon and zesty lime come together in a clean, refreshing sparkle. Bright, familiar, and perfect for hot days, picnics, and easy sipping."},
+  {id:11,name:"Ruby Grapefruit", c1:"#e8748a",c2:"#c2455f", notes:"A sparkling pink grapefruit soda with a tangy citrus bite and a clean, refreshing finish. Bright, slightly tart, and made for shoppers who love bold flavor."},
+  {id:12,name:"Tangerine",       c1:"#f0972c",c2:"#c26910", notes:"Sweet, juicy tangerine flavor with a sunny citrus aroma and smooth bubbly finish. A cheerful orange soda with a fresh, premium twist."},
+  {id:13,name:"Ginger Ale",      c1:"#d8b34a",c2:"#a3811f", notes:"Warm ginger spice meets golden bubbles for a crisp, refreshing soda with a gentle kick. Classic enough for everyday sipping, bold enough to feel special."},
+  {id:14,name:"Cucumber Mint",   c1:"#8bbf6e",c2:"#5a8a3e", notes:"Cool cucumber and fresh mint create a clean, spa-like soda that feels crisp and refreshing. Light, modern, and perfect for a more elevated soda experience."},
+  {id:15,name:"Lavender Honey",  c1:"#9d7fb0",c2:"#6e5286", notes:"Soft lavender notes meet golden honey sweetness for a smooth, floral soda with a calming finish. Unique, elegant, and perfect for craft beverage fans."},
+  {id:16,name:"Hibiscus",        c1:"#c2335f",c2:"#841f40", notes:"Bright hibiscus flavor with a floral, slightly tart sparkle and a beautiful berry-like finish. Bold, colorful, and made to catch attention on the shelf."},
+  {id:17,name:"Pineapple",       c1:"#f0c33c",c2:"#c2920e", notes:"Juicy pineapple flavor with a tropical sparkle and a sunny golden finish. Sweet, bright, and ready for beach days, cookouts, and summer cravings."},
+  {id:18,name:"Mango",           c1:"#f5a23c",c2:"#d9701f", notes:"Smooth, ripe mango flavor with a rich tropical sweetness and fizzy finish. Bold, juicy, and perfect for customers looking for a vacation-in-a-can vibe."},
+  {id:19,name:"Coconut",         c1:"#7fb6a1",c2:"#4d8c77", notes:"Creamy coconut flavor with a breezy tropical finish and smooth sparkling lift. Light, beachy, and different from the usual soda aisle choices."},
+  {id:20,name:"Passionfruit",    c1:"#e8b04a",c2:"#c27a1f", notes:"Bright, tangy passionfruit flavor with tropical sweetness and a bold sparkling finish. Exotic, energetic, and made for adventurous soda drinkers."},
 ];
 const LIMIT=7;
-const cart={};
-const viewedInfo=new Set();
-const hoverLog=[];
-let mode=Math.random()<0.5?'hover':'static';
-document.body.className=mode==='hover'?'mode-hover':'mode-static';
-const startTime=Date.now();
-let firstSelect=null, selectionChanges=0;
 
 // ===== Google Sheets endpoint =====
-// Paste the Web App URL from your deployed Apps Script here (see Code.gs instructions).
 const SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycby8CSYYM_JmmTRVO3l-YKEwfk33sPFpZd-yQEK-wvBS7gzMT4A22zTumKv5jqIC03_v2A/exec";
 
-// ===== Prolific / session identifiers (read from URL params) =====
+// ===== Prolific / session identifiers =====
 function getParam(name){
   const p=new URLSearchParams(window.location.search);
   return p.get(name)||p.get(name.toUpperCase())||p.get(name.toLowerCase())||'';
@@ -221,33 +233,51 @@ const SESSION_ID=getParam('SESSION_ID')||('local_'+Date.now()+'_'+Math.random().
 let eventCount=0, totalHoverMs=0, behaviorScrollRatio=0, shoppingTimeMs=0;
 const hoverStart={};
 
-function canVisual(f){
-  return `<div class="can" style="background:linear-gradient(160deg,${f.c1},${f.c2})">
-      <div class="lid"></div><div class="brand">FizzLab</div>
-      <div class="flavor">${f.name}</div><div class="fizz">Prebiotic Soda</div></div>`;
+const cart={};
+const viewedInfo=new Set();
+const hoverLog=[];
+const _r=Math.random();
+let mode=_r<1/3?'hover':_r<2/3?'click':'static';
+document.body.className='mode-'+mode;
+const startTime=Date.now();
+let firstSelect=null, selectionChanges=0;
+
+function canImg(f){
+  // tries images/can_{id}.png, falls back to CSS can if not found
+  return `<img class="can-img" src="images/${encodeURIComponent(f.name)}.png" alt="${f.name}"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="can-fallback" style="display:none;background:linear-gradient(160deg,${f.c1},${f.c2})">
+            <div class="lid"></div><div class="bn">FizzLab</div><div class="fn">${f.name}</div></div>`;
 }
 function render(){
   let h='';
   FLAVORS.forEach(f=>{
-    h+=`<div class="card" data-id="${f.id}" id="card${f.id}">
-      <div class="tile" style="background:${f.tile}" onmouseenter="onHover(${f.id})" onmouseleave="onHoverEnd(${f.id})">
-        <img src="images/${encodeURIComponent(f.name)}.png" alt="${f.name}" loading="lazy">
-
-        <div class="info"><div class="nm">${f.name}</div><div class="notes">${f.notes}</div></div>
+    h+=`<div class="card" data-id="${f.id}" id="card${f.id}" onmouseenter="onHover(${f.id})" onmouseleave="onHoverEnd(${f.id})">
+      <div class="stage" onclick="onStageClick(${f.id})">
+        ${canImg(f)}
+        <div class="note-hover">${f.notes}</div>
+        <button class="add-hover" onclick="event.stopPropagation();chg(${f.id},1)">Add a can</button>
       </div>
-      <div class="body">
-        <div><div class="name">${f.name}</div><div class="sub">$2.50</div></div>
-        <div class="static-notes"><p>${f.notes}</p></div>
-        <div class="foot">
-          <div class="qty"><button onclick="chg(${f.id},-1)">−</button><span class="n" id="n${f.id}">0</span><button onclick="chg(${f.id},1)">+</button></div>
-          <button class="addbtn" onclick="chg(${f.id},1)">Add</button>
-        </div>
-      </div></div>`;
+      <div class="label">9g Fiber</div>
+      <div class="name">${f.name}</div>
+      <div class="price">$2.50</div>
+      <div class="static-note">${f.notes}</div>
+      <button class="add-static" onclick="chg(${f.id},1)">Add a can</button>
+      <div class="qty" id="qty${f.id}"><button onclick="chg(${f.id},-1)">−</button><span class="n" id="n${f.id}">0</span><button onclick="chg(${f.id},1)">+</button></div>
+    </div>`;
   });
   document.getElementById('grid').innerHTML=h;
 }
-function onHover(id){eventCount++;hoverStart[id]=Date.now();if(mode==='hover')viewedInfo.add(id);hoverLog.push({id,t:Date.now()-startTime});}
+function onHover(id){eventCount++;hoverStart[id]=Date.now();if(mode==='hover'){viewedInfo.add(id);hoverLog.push({id,t:Date.now()-startTime});}}
 function onHoverEnd(id){if(hoverStart[id]!=null){totalHoverMs+=Date.now()-hoverStart[id];delete hoverStart[id];}}
+function onStageClick(id){
+  eventCount++;
+  if(mode!=='click')return;
+  const card=document.getElementById('card'+id);
+  const wasRevealed=card.classList.contains('revealed');
+  card.classList.toggle('revealed');
+  if(!wasRevealed){ viewedInfo.add(id); hoverLog.push({id,t:Date.now()-startTime}); }
+}
 function totalCans(){return Object.values(cart).reduce((a,b)=>a+b,0);}
 function distinctCans(){return Object.keys(cart).filter(k=>cart[k]>0).length;}
 function chg(id,d){
@@ -261,6 +291,7 @@ function chg(id,d){
   if(next===0)delete cart[id];else cart[id]=next;
   if(mode==='static')viewedInfo.add(id);
   document.getElementById('n'+id).textContent=cart[id]||0;
+  document.getElementById('qty'+id).classList.toggle('show',(cart[id]||0)>0);
   document.getElementById('card'+id).classList.toggle('selected',(cart[id]||0)>0);
   updateProgress();
 }
@@ -272,7 +303,6 @@ function updateProgress(){
   document.getElementById('progfill').style.width=(tot/LIMIT*100)+'%';
   document.getElementById('checkout').classList.toggle('ready',tot===LIMIT);
 }
-
 let maxScroll=0,scrollEvents=0;const seenViewport=new Set();
 window.addEventListener('scroll',()=>{
   scrollEvents++;eventCount++;const sc=window.scrollY+window.innerHeight;if(sc>maxScroll)maxScroll=sc;
@@ -339,17 +369,10 @@ function selectedProductsStr(){
 }
 function sendToGoogleSheet(data){
   if(!SHEET_WEBAPP_URL||SHEET_WEBAPP_URL.indexOf('PASTE_YOUR')===0){
-    console.warn('SHEET_WEBAPP_URL not configured — response was not sent to Google Sheets.');
-    return;
+    console.warn('SHEET_WEBAPP_URL not configured — data not sent.');return;
   }
-  // Apps Script doesn't handle CORS preflight well, so we send as a "simple request"
-  // (text/plain body, no-cors mode). We can't read the response, but the row still gets written.
-  fetch(SHEET_WEBAPP_URL,{
-    method:'POST',
-    mode:'no-cors',
-    headers:{'Content-Type':'text/plain;charset=utf-8'},
-    body:JSON.stringify(data)
-  }).catch(err=>console.error('Failed to send data to Google Sheets:',err));
+  fetch(SHEET_WEBAPP_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)})
+    .catch(err=>console.error('Sheet send failed:',err));
 }
 function submitSurvey(){
   const ageOk=validateAge(true);
@@ -357,8 +380,9 @@ function submitSurvey(){
     document.getElementById('surveyerr').style.display='block';return;
   }
   const totalMs=Date.now()-startTime;
+  const uniqueExposed=mode==='static'?FLAVORS.length:viewedInfo.size;
   const data={
-    condition:mode==='hover'?'hovering':'static',
+    condition:mode,
     prolific_pid:PROLIFIC_PID, study_id:STUDY_ID, session_id:SESSION_ID,
     flu1:sResp['s0'], flu2:sResp['s1'],
     exp1:sResp['s2'], exp2:sResp['s3'],
@@ -375,7 +399,7 @@ function submitSurvey(){
     behavior_scroll_ratio:behaviorScrollRatio,
     behavior_scroll_events:scrollEvents,
     behavior_unique_product_views:seenViewport.size,
-    behavior_unique_hovered_products:viewedInfo.size,
+    behavior_unique_hovered_products:uniqueExposed,
     behavior_total_hover_count:hoverLog.length,
     behavior_total_hover_ms:totalHoverMs,
     demo_gender:gender,
@@ -388,7 +412,7 @@ function submitSurvey(){
     cart_raw:JSON.stringify(cart),
   };
   window._STUDYDATA=data;
-  console.log("STUDY DATA:",JSON.stringify(data));
+  console.log('STUDY DATA:',JSON.stringify(data));
   sendToGoogleSheet(data);
   document.getElementById('survey').classList.remove('show');
   document.getElementById('done').classList.add('show');window.scrollTo(0,0);
