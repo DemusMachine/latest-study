@@ -74,53 +74,48 @@
   .add-hover:hover{background:var(--coral);}
   /* CLICK mode: clicking a card toggles .revealed, which shows the same note+add */
   body.mode-click .stage{cursor:pointer;}
+  body.mode-static .stage{
+    overflow: visible;
+}
+body.mode-static .can-img{
+    border-radius: 5%;
+}
   body.mode-click .card.revealed .add-hover{opacity:1;pointer-events:auto;}
   /* STATIC control: same add button, always visible, identical position */
-  body.mode-static .add-hover{opacity:1;pointer-events:auto;}
+body.mode-static .note-hover{
+    top: -12px;          /* adjust to taste */
+    opacity: 1;
+    z-index: 999;
+    pointer-events: none;
+}
+
+body.mode-static .card{
+    position: relative;
+    z-index: 20;
+}
+
+body.mode-static .add-hover{
+    opacity:1;
+    pointer-events:auto;
+    bottom: 2%;
+}
 
   /* hover-revealed flavor note (the "information-revealing" part of the manipulation) */
   .note-hover{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:84%;background:rgba(22,38,29,.93);color:#f0ead8;
-    font-size:12px;line-height:1.45;border-radius:12px;padding:10px 12px;z-index:5;opacity:0;transition:opacity .18s ease;pointer-events:none;}
+    font-size:12px;line-height:1.45;border-radius:12px;padding:10px 12px;z-index:5;opacity:0;transition:opacity .18s ease;pointer-events:none; }
   body.mode-hover .card:hover .note-hover{opacity:1;}
   body.mode-click .card.revealed .note-hover{opacity:1;}
-  body.mode-static .note-hover{opacity:1;}
 
   .label{margin-top:6px;font-size:12px;color:var(--muted);font-weight:600;}
   .name{font-size:17px;font-weight:700;font-family:Georgia,serif;margin-top:2px;color:var(--green);}
   .price{font-size:13px;color:var(--muted);margin-top:1px;}
 
 /* STATIC: hide overlays on the image */
-  body.mode-static .note-hover{display:none !important;}
-  body.mode-static .add-hover{display:none !important;}
 
-  /* STATIC: the whole card becomes one holistic product tile */
-  body.mode-static .card{
-    background:#fff;border:1px solid var(--line);border-radius:16px;
-    overflow:hidden;padding-top:0;
-    box-shadow:0 2px 14px rgba(60,40,20,.07);
-  }
-  body.mode-static .stage{
-    background:var(--cream);border-radius:0;
-  }
-  body.mode-static .label{margin-top:12px;padding:0 14px;text-align:left;}
-  body.mode-static .name{padding:0 14px;text-align:left;}
-  body.mode-static .price{padding:0 14px;text-align:left;}
 
-  .static-note{display:none;}
-  body.mode-static .static-note{
-    display:block;margin:10px 14px 0;padding-top:10px;
-    border-top:1px solid var(--line);
-    font-size:13px;line-height:1.55;color:#4b5a4f;text-align:left;
-  }
-  .add-static{display:none;}
-  body.mode-static .add-static{
-    display:block;margin:10px 14px 14px;width:calc(100% - 28px);
-    background:var(--green-btn);color:#fff;border:none;
-    border-radius:22px;padding:11px;font-weight:700;font-size:14px;
-    cursor:pointer;font-family:inherit;transition:background .15s;
-  }
+
   body.mode-static .add-static:hover{background:var(--coral);}
-  body.mode-static .qty{margin:0 14px 14px;}
+
   .qty{display:none;align-items:center;border:1.5px solid var(--green);border-radius:24px;overflow:hidden;margin-top:9px;}
   .qty.show{display:flex;}
   .qty button{width:32px;height:32px;border:none;background:#fff;font-size:17px;cursor:pointer;color:var(--green);font-weight:700;}
@@ -220,26 +215,26 @@
 
 <script>
 const FLAVORS = [
-  {id:1, name:"Vintage Cola",    c1:"#7a2e1e",c2:"#4a1810", notes:"A smooth, old-school cola with deep caramel notes and a nostalgic soda-fountain finish. Classic, crisp, and made for burger nights, road trips, and backyard BBQs."},
-  {id:2, name:"Root Beer",       c1:"#5b3a23",c2:"#321f12", notes:"Creamy, frothy, and bold, this root beer brings that classic American diner flavor with a rich vanilla-spice finish. It tastes like a float waiting to happen."},
-  {id:3, name:"Cream Soda",      c1:"#cf9f4e",c2:"#9a7330", notes:"Soft, sweet, and velvety with warm vanilla notes, Cream Soda is a smooth throwback to the golden age of soda shops. Lightly bubbly and endlessly nostalgic."},
-  {id:4, name:"Cherry Cola",     c1:"#9c1f2e",c2:"#5e0f1a", notes:"Juicy cherry meets classic cola for a bold, bright twist on an American favorite. Sweet, fizzy, and perfect for anyone who loves a little extra pop."},
-  {id:5, name:"Wild Strawberry", c1:"#e26d7a",c2:"#b23f50", notes:"Bursting with ripe strawberry flavor and a fresh-picked sweetness, this soda feels like summer in a can. Bright, playful, and made to stand out."},
-  {id:6, name:"Concord Grape",   c1:"#6b3fa0",c2:"#42206a", notes:"Rich, jammy Concord grape flavor with a bold purple punch and a smooth sparkling finish. It's sweet, nostalgic, and unmistakably American."},
-  {id:7, name:"Blackberry",      c1:"#553a6e",c2:"#2e1f42", notes:"Deep, juicy blackberry flavor with a slightly tart edge and a smooth berry finish. A bold, grown-up berry soda with craft-market appeal."},
-  {id:8, name:"Raspberry",       c1:"#c23b6a",c2:"#7e1f44", notes:"Bright raspberry flavor with a lively tart-sweet sparkle. Refreshing, colorful, and perfect for customers who want something fruity but not ordinary."},
-  {id:9, name:"Blood Orange",    c1:"#e0552b",c2:"#a8331a", notes:"Tangy, bold, and citrusy with a deeper orange bite, Blood Orange brings a premium twist to classic fruit soda. Vibrant, sharp, and made for modern soda lovers."},
-  {id:10,name:"Lemon Lime",      c1:"#cdc73f",c2:"#94992a", notes:"Crisp lemon and zesty lime come together in a clean, refreshing sparkle. Bright, familiar, and perfect for hot days, picnics, and easy sipping."},
-  {id:11,name:"Ruby Grapefruit", c1:"#e8748a",c2:"#c2455f", notes:"A sparkling pink grapefruit soda with a tangy citrus bite and a clean, refreshing finish. Bright, slightly tart, and made for shoppers who love bold flavor."},
-  {id:12,name:"Tangerine",       c1:"#f0972c",c2:"#c26910", notes:"Sweet, juicy tangerine flavor with a sunny citrus aroma and smooth bubbly finish. A cheerful orange soda with a fresh, premium twist."},
-  {id:13,name:"Ginger Ale",      c1:"#d8b34a",c2:"#a3811f", notes:"Warm ginger spice meets golden bubbles for a crisp, refreshing soda with a gentle kick. Classic enough for everyday sipping, bold enough to feel special."},
-  {id:14,name:"Cucumber Mint",   c1:"#8bbf6e",c2:"#5a8a3e", notes:"Cool cucumber and fresh mint create a clean, spa-like soda that feels crisp and refreshing. Light, modern, and perfect for a more elevated soda experience."},
-  {id:15,name:"Lavender Honey",  c1:"#9d7fb0",c2:"#6e5286", notes:"Soft lavender notes meet golden honey sweetness for a smooth, floral soda with a calming finish. Unique, elegant, and perfect for craft beverage fans."},
-  {id:16,name:"Hibiscus",        c1:"#c2335f",c2:"#841f40", notes:"Bright hibiscus flavor with a floral, slightly tart sparkle and a beautiful berry-like finish. Bold, colorful, and made to catch attention on the shelf."},
-  {id:17,name:"Pineapple",       c1:"#f0c33c",c2:"#c2920e", notes:"Juicy pineapple flavor with a tropical sparkle and a sunny golden finish. Sweet, bright, and ready for beach days, cookouts, and summer cravings."},
-  {id:18,name:"Mango",           c1:"#f5a23c",c2:"#d9701f", notes:"Smooth, ripe mango flavor with a rich tropical sweetness and fizzy finish. Bold, juicy, and perfect for customers looking for a vacation-in-a-can vibe."},
-  {id:19,name:"Coconut",         c1:"#7fb6a1",c2:"#4d8c77", notes:"Creamy coconut flavor with a breezy tropical finish and smooth sparkling lift. Light, beachy, and different from the usual soda aisle choices."},
-  {id:20,name:"Passionfruit",    c1:"#e8b04a",c2:"#c27a1f", notes:"Bright, tangy passionfruit flavor with tropical sweetness and a bold sparkling finish. Exotic, energetic, and made for adventurous soda drinkers."},
+  {id:1, name:"Vintage Cola",    c1:"#7a2e1e", c2:"#4a1810", notes:"A smooth, old-school cola with deep caramel notes and a crisp, nostalgic finish."},
+  {id:2, name:"Root Beer",       c1:"#5b3a23", c2:"#321f12", notes:"Creamy and bold, with a classic frothy taste and a rich vanilla-spice finish."},
+  {id:3, name:"Cream Soda",      c1:"#cf9f4e", c2:"#9a7330", notes:"Soft, sweet, and velvety with warm vanilla notes and a lightly bubbly lift."},
+  {id:4, name:"Cherry Cola",     c1:"#9c1f2e", c2:"#5e0f1a", notes:"Juicy cherry meets classic cola for a bold, bright, fizzy twist."},
+  {id:5, name:"Wild Strawberry", c1:"#e26d7a", c2:"#b23f50", notes:"Ripe strawberry flavor with a fresh-picked sweetness. Bright and playful."},
+  {id:6, name:"Concord Grape",   c1:"#6b3fa0", c2:"#42206a", notes:"Rich, jammy grape flavor with a bold purple punch and a smooth finish."},
+  {id:7, name:"Blackberry",      c1:"#553a6e", c2:"#2e1f42", notes:"Deep, juicy blackberry with a slightly tart edge and a smooth berry finish."},
+  {id:8, name:"Raspberry",       c1:"#c23b6a", c2:"#7e1f44", notes:"Bright raspberry with a lively tart-sweet sparkle. Refreshing and fruity."},
+  {id:9, name:"Blood Orange",    c1:"#e0552b", c2:"#a8331a", notes:"Tangy and bold with a deep citrus bite. A premium twist on orange soda."},
+  {id:10, name:"Lemon Lime",     c1:"#cdc73f", c2:"#94992a", notes:"Crisp lemon and zesty lime in a clean, refreshing sparkle."},
+  {id:11, name:"Ruby Grapefruit",c1:"#e8748a", c2:"#c2455f", notes:"Tangy pink grapefruit with a bright, slightly tart, refreshing finish."},
+  {id:12, name:"Tangerine",      c1:"#f0972c", c2:"#c26910", notes:"Sweet, juicy tangerine with a sunny citrus aroma and smooth finish."},
+  {id:13, name:"Ginger Ale",     c1:"#d8b34a", c2:"#a3811f", notes:"Warm ginger spice and golden bubbles with a crisp, gentle kick."},
+  {id:14, name:"Cucumber Mint",  c1:"#8bbf6e", c2:"#5a8a3e", notes:"Cool cucumber and fresh mint for a clean, crisp, refreshing sip."},
+  {id:15, name:"Lavender Honey", c1:"#9d7fb0", c2:"#6e5286", notes:"Soft floral lavender meets golden honey for a smooth, calming finish."},
+  {id:16, name:"Hibiscus",       c1:"#c2335f", c2:"#841f40", notes:"Bright, floral hibiscus with a slightly tart, berry-like sparkle."},
+  {id:17, name:"Pineapple",      c1:"#f0c33c", c2:"#c2920e", notes:"Juicy pineapple with a tropical sparkle and a sunny golden finish."},
+  {id:18, name:"Mango",          c1:"#f5a23c", c2:"#d9701f", notes:"Smooth, ripe mango with rich tropical sweetness and a fizzy finish."},
+  {id:19, name:"Coconut",        c1:"#7fb6a1", c2:"#4d8c77", notes:"Creamy coconut with a breezy tropical, lightly sparkling finish."},
+  {id:20, name:"Passionfruit",   c1:"#e8b04a", c2:"#c27a1f", notes:"Bright, tangy passionfruit with tropical sweetness and a bold sparkle."},
 ];
 const LIMIT=7;
 
@@ -287,8 +282,6 @@ function render(){
       <div class="label">9g Fiber</div>
       <div class="name">${f.name}</div>
       <div class="price">$2.50</div>
-      <div class="static-note">${f.notes}</div>
-      <button class="add-static" onclick="chg(${f.id},1)">Add a can</button>
       <div class="qty" id="qty${f.id}"><button onclick="chg(${f.id},-1)">−</button><span class="n" id="n${f.id}">0</span><button onclick="chg(${f.id},1)">+</button></div>
     </div>`;
   });
