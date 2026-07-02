@@ -89,12 +89,38 @@
   .name{font-size:17px;font-weight:700;font-family:Georgia,serif;margin-top:2px;color:var(--green);}
   .price{font-size:13px;color:var(--muted);margin-top:1px;}
 
-  /* old bottom static elements no longer used (all conditions use the top note + add) */
-  .static-note{display:none;}
-  .add-static{display:none;}
-  body.mode-static .static-note{display:none;}
-  body.mode-static .add-static{display:none;}
+/* STATIC: hide overlays on the image */
+  body.mode-static .note-hover{display:none !important;}
+  body.mode-static .add-hover{display:none !important;}
 
+  /* STATIC: the whole card becomes one holistic product tile */
+  body.mode-static .card{
+    background:#fff;border:1px solid var(--line);border-radius:16px;
+    overflow:hidden;padding-top:0;
+    box-shadow:0 2px 14px rgba(60,40,20,.07);
+  }
+  body.mode-static .stage{
+    background:var(--cream);border-radius:0;
+  }
+  body.mode-static .label{margin-top:12px;padding:0 14px;text-align:left;}
+  body.mode-static .name{padding:0 14px;text-align:left;}
+  body.mode-static .price{padding:0 14px;text-align:left;}
+
+  .static-note{display:none;}
+  body.mode-static .static-note{
+    display:block;margin:10px 14px 0;padding-top:10px;
+    border-top:1px solid var(--line);
+    font-size:13px;line-height:1.55;color:#4b5a4f;text-align:left;
+  }
+  .add-static{display:none;}
+  body.mode-static .add-static{
+    display:block;margin:10px 14px 14px;width:calc(100% - 28px);
+    background:var(--green-btn);color:#fff;border:none;
+    border-radius:22px;padding:11px;font-weight:700;font-size:14px;
+    cursor:pointer;font-family:inherit;transition:background .15s;
+  }
+  body.mode-static .add-static:hover{background:var(--coral);}
+  body.mode-static .qty{margin:0 14px 14px;}
   .qty{display:none;align-items:center;border:1.5px solid var(--green);border-radius:24px;overflow:hidden;margin-top:9px;}
   .qty.show{display:flex;}
   .qty button{width:32px;height:32px;border:none;background:#fff;font-size:17px;cursor:pointer;color:var(--green);font-weight:700;}
@@ -271,12 +297,12 @@ function render(){
 function onHover(id){eventCount++;hoverStart[id]=Date.now();if(mode==='hover'){viewedInfo.add(id);hoverLog.push({id,t:Date.now()-startTime});}}
 function onHoverEnd(id){if(hoverStart[id]!=null){totalHoverMs+=Date.now()-hoverStart[id];delete hoverStart[id];}}
 function onStageClick(id){
-  eventCount++;
   if(mode!=='click')return;
   const card=document.getElementById('card'+id);
   const wasRevealed=card.classList.contains('revealed');
+  FLAVORS.forEach(f=>{if(f.id!==id)document.getElementById('card'+f.id).classList.remove('revealed');});
   card.classList.toggle('revealed');
-  if(!wasRevealed){ viewedInfo.add(id); hoverLog.push({id,t:Date.now()-startTime}); }
+  if(!wasRevealed){viewedInfo.add(id);hoverLog.push({id,t:Date.now()-startTime});}
 }
 function totalCans(){return Object.values(cart).reduce((a,b)=>a+b,0);}
 function distinctCans(){return Object.keys(cart).filter(k=>cart[k]>0).length;}
