@@ -151,10 +151,23 @@
   #done.show{display:block;}
   #done h2{font-size:30px;margin-bottom:10px;font-weight:800;font-family:Georgia,serif;color:var(--green);}
   #done p{color:var(--muted);font-size:16px;}
+  #mobile-block{display:none;position:fixed;inset:0;background:var(--cream);z-index:9999;align-items:center;justify-content:center;padding:32px;text-align:center;}
+  #mobile-msg{max-width:320px;}
+  #mobile-msg h2{font-size:22px;font-weight:800;font-family:Georgia,serif;color:var(--green);margin-bottom:12px;}
+  #mobile-msg p{font-size:15px;color:#4b5a4f;line-height:1.6;margin-bottom:10px;}
+  @media(max-width:720px){#mobile-block{display:flex;}}
 </style>
 </head>
 <body>
 
+<div id="mobile-block">
+  <div id="mobile-msg">
+    <div style="font-size:48px;margin-bottom:16px;">💻</div>
+    <h2>Please use a computer</h2>
+    <p>This study is designed for a laptop or desktop computer with a mouse or trackpad.</p>
+    <p>Please reopen this link on your computer to continue.</p>
+  </div>
+</div>
 
 <div id="store">
   <div class="promobar">Sparkling prebiotic soda · 2–5g sugar · 9g fiber · made with plant fiber</div>
