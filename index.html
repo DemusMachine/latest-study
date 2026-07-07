@@ -156,6 +156,16 @@
   #mobile-msg h2{font-size:22px;font-weight:800;font-family:Georgia,serif;color:var(--green);margin-bottom:12px;}
   #mobile-msg p{font-size:15px;color:#4b5a4f;line-height:1.6;margin-bottom:10px;}
   @media(max-width:720px){#mobile-block{display:flex;}}
+  /* HOVER: blurred + name hidden by default, revealed on hover */
+  body.mode-hover .can-img{filter:blur(8px);transition:filter .25s ease, transform .2s ease;}
+
+  body.mode-hover .card:hover .can-img{filter:drop-shadow(0 10px 16px rgba(60,40,20,.16));}
+
+
+  /* Fan Favorite badge */
+  .fav-badge{animation: fadeIn 1s ease;position:absolute;top:8px;left:10px;background:#E8A93B;color:#fff;font-size:10px;font-weight:700;padding:4px 9px;border-radius:12px;z-index:4;letter-spacing:.02em;}
+  
+  body.mode-hover .card:hover .fav-badge{opacity:0;transform:translateY(-10%);transition:opacity .18s ease;}
 </style>
 </head>
 <body>
@@ -187,15 +197,15 @@
   </div>
 
   <div class="hero">
-    <h1>Choose 7 drinks for the week ahead.</h1>
-    <p class="task">Imagine you're picking out drinks to keep at home for the next week. Browse the flavors and choose <b>7 cans</b> to take home. Pick whichever you like, and as many of each as you want.</p>
+    <h1>Choose 10 drinks for the week ahead.</h1>
+    <p class="task">Imagine you're picking out drinks to keep at home for the next week. Browse the flavors and choose <b>10 cans</b> to take home. Pick whichever you like, and as many of each as you want.</p>
     <div class="pillrow">
-      <span class="pill">20 flavors</span><span class="pill">Choose <b>7 cans</b></span><span class="pill">All cans <b>$2.50</b></span>
+      <span class="pill">20 flavors</span><span class="pill">Choose <b>10 cans</b></span><span class="pill">All cans <b>$2.50</b></span>
     </div>
   </div>
 
   <div id="progress"><div class="prog-inner">
-    <div class="prog-label"><span id="picked">0</span> of 7 chosen</div>
+    <div class="prog-label"><span id="picked">0</span> of 10 chosen</div>
     <div class="prog-track"><div class="prog-fill" id="progfill"></div></div>
     <button id="checkout" onclick="goSurvey()">Continue →</button>
   </div></div>
@@ -231,16 +241,16 @@
 
 <script>
 const FLAVORS = [
-  {id:1, name:"Vintage Cola",    c1:"#7a2e1e", c2:"#4a1810", notes:"A smooth, old-school cola with deep caramel notes and a crisp, nostalgic finish."},
-  {id:2, name:"Root Beer",       c1:"#5b3a23", c2:"#321f12", notes:"Creamy and bold, with a classic frothy taste and a rich vanilla-spice finish."},
-  {id:3, name:"Cream Soda",      c1:"#cf9f4e", c2:"#9a7330", notes:"Soft, sweet, and velvety with warm vanilla notes and a lightly bubbly lift."},
-  {id:4, name:"Cherry Cola",     c1:"#9c1f2e", c2:"#5e0f1a", notes:"Juicy cherry meets classic cola for a bold, bright, fizzy twist."},
+  {id:1, name:"Vintage Cola",    c1:"#7a2e1e", c2:"#4a1810", popular:true,  notes:"A smooth, old-school cola with deep caramel notes and a crisp, nostalgic finish."},
+  {id:2, name:"Root Beer",       c1:"#5b3a23", c2:"#321f12", popular:true,  notes:"Creamy and bold, with a classic frothy taste and a rich vanilla-spice finish."},
+  {id:3, name:"Cream Soda",      c1:"#cf9f4e", c2:"#9a7330", popular:true,  notes:"Soft, sweet, and velvety with warm vanilla notes and a lightly bubbly lift."},
+  {id:4, name:"Cherry Cola",     c1:"#9c1f2e", c2:"#5e0f1a", popular:true,  notes:"Juicy cherry meets classic cola for a bold, bright, fizzy twist."},
   {id:5, name:"Wild Strawberry", c1:"#e26d7a", c2:"#b23f50", notes:"Ripe strawberry flavor with a fresh-picked sweetness. Bright and playful."},
   {id:6, name:"Concord Grape",   c1:"#6b3fa0", c2:"#42206a", notes:"Rich, jammy grape flavor with a bold purple punch and a smooth finish."},
   {id:7, name:"Blackberry",      c1:"#553a6e", c2:"#2e1f42", notes:"Deep, juicy blackberry with a slightly tart edge and a smooth berry finish."},
   {id:8, name:"Raspberry",       c1:"#c23b6a", c2:"#7e1f44", notes:"Bright raspberry with a lively tart-sweet sparkle. Refreshing and fruity."},
   {id:9, name:"Blood Orange",    c1:"#e0552b", c2:"#a8331a", notes:"Tangy and bold with a deep citrus bite. A premium twist on orange soda."},
-  {id:10, name:"Lemon Lime",     c1:"#cdc73f", c2:"#94992a", notes:"Crisp lemon and zesty lime in a clean, refreshing sparkle."},
+  {id:10, name:"Lemon Lime",     c1:"#cdc73f", c2:"#94992a", popular:true,  notes:"Crisp lemon and zesty lime in a clean, refreshing sparkle."},
   {id:11, name:"Ruby Grapefruit",c1:"#e8748a", c2:"#c2455f", notes:"Tangy pink grapefruit with a bright, slightly tart, refreshing finish."},
   {id:12, name:"Tangerine",      c1:"#f0972c", c2:"#c26910", notes:"Sweet, juicy tangerine with a sunny citrus aroma and smooth finish."},
   {id:13, name:"Ginger Ale",     c1:"#d8b34a", c2:"#a3811f", notes:"Warm ginger spice and golden bubbles with a crisp, gentle kick."},
@@ -252,7 +262,7 @@ const FLAVORS = [
   {id:19, name:"Coconut",        c1:"#7fb6a1", c2:"#4d8c77", notes:"Creamy coconut with a breezy tropical, lightly sparkling finish."},
   {id:20, name:"Passionfruit",   c1:"#e8b04a", c2:"#c27a1f", notes:"Bright, tangy passionfruit with tropical sweetness and a bold sparkle."},
 ];
-const LIMIT=7;
+const LIMIT=10;
 
 // ===== Google Sheets endpoint =====
 const SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycby8CSYYM_JmmTRVO3l-YKEwfk33sPFpZd-yQEK-wvBS7gzMT4A22zTumKv5jqIC03_v2A/exec";
@@ -291,6 +301,7 @@ function render(){
     h+=`<div class="card" data-id="${f.id}" id="card${f.id}" onmouseenter="onHover(${f.id})" onmouseleave="onHoverEnd(${f.id})">
       <div class="stage" onclick="onStageClick(${f.id})">
         ${canImg(f)}
+        ${f.popular?'<div class="fav-badge">Fan Favorite</div>':''}
         <div class="note-hover">${f.notes}</div>
         <button class="add-hover" onclick="event.stopPropagation();chg(${f.id},1)">Add a can</button>
       </div>
@@ -331,7 +342,7 @@ function chg(id,d){
   document.getElementById('card'+id).classList.toggle('selected',(cart[id]||0)>0);
   updateProgress();
 }
-function flashLimit(){const c=document.getElementById('checkout');c.textContent="That's 7 — continue →";setTimeout(()=>{c.textContent="Continue →";},1200);}
+function flashLimit(){const c=document.getElementById('checkout');c.textContent="That's 10 — continue →";setTimeout(()=>{c.textContent="Continue →";},1200);}
 function updateProgress(){
   const tot=totalCans();
   document.getElementById('picked').textContent=tot;
@@ -361,18 +372,18 @@ const SCALE=[
 ];
 const MC=[
   {dim:'MC1',t:"Flavor details appeared after I moved my cursor over a drink."},
-  {dim:'MC2',t:"Flavor details were visible without any extra action."},
+  {dim:'MC2',t:"All flavor descriptions were immediately visible when the page loaded, without any clicking or action."},
   {dim:'MC3',t:"Seeing a flavor's details required me to interact with the page."},
 ];
 let sResp={},mResp={},gender=null;
 function buildSurvey(){
   let h='';const head=(t)=>`<div class="sechead">${t}</div>`;
+    h+=head('Thinking back on the website');MC.forEach((it,i)=>{h+=scaleQ('m'+i,it.t);});
   h+=head('Your experience');SCALE.forEach((it,i)=>{h+=scaleQ('s'+i,it.t);});
-  h+=head('Thinking back on the website');MC.forEach((it,i)=>{h+=scaleQ('m'+i,it.t);});
   document.getElementById('questions').innerHTML=h;
 }
 function scaleQ(name,text){
-  let b='';for(let v=1;v<=7;v++){b+=`<label><input type="radio" name="${name}" value="${v}" onchange="setR('${name}',${v})"><div class="box">${v}</div></label>`;}
+  let b='';for(let v=1;v<=9;v++){b+=`<label><input type="radio" name="${name}" value="${v}" onchange="setR('${name}',${v})"><div class="box">${v}</div></label>`;}
   return `<div class="q"><div class="qt">${text}</div><div class="scale">${b}</div><div class="ends"><span>Strongly disagree</span><span>Strongly agree</span></div></div>`;
 }
 function setR(n,v){eventCount++;if(n[0]==='s')sResp[n]=v;else mResp[n]=v;}
