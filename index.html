@@ -851,6 +851,7 @@ function submitSurvey(){
     DV_total_items:totalCans(),
     DV_variety_index:distinctCans(),
     DV_repeated_units:totalCans()-distinctCans(),
+    DV_fav_unique:FLAVORS.filter(f=>f.popular&&cart[f.id]>0).length,
     behavior_scroll_px:maxScroll,
     behavior_scroll_ratio:behaviorScrollRatio,
     behavior_scroll_events:scrollEvents,
