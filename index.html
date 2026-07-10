@@ -99,7 +99,7 @@
   body.mode-static .card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;padding-top:0;box-shadow:0 2px 16px rgba(60,40,20,.07);}
   body.mode-static .stage{border-radius:0;background:var(--cream);}
   body.mode-static .label{text-align:left;padding:12px 16px 0;margin-top:0;}
-  body.mode-static .name{text-align:left;padding:0 16px;}
+
   body.mode-static .price{text-align:left;padding:0 16px;}
 
   /* hover-revealed flavor note (the "information-revealing" part of the manipulation) */
@@ -120,10 +120,10 @@
   body.mode-static .qty{margin-top:8px;margin-bottom:14px;}
 
   .qty{display:none;align-items:center;border:1.5px solid var(--green);border-radius:24px;overflow:hidden;margin-top:9px;}
-  .qty.show{display:flex;}
+  .qty.show{display:flex; background-color: #fff;}
   .qty button{width:32px;height:32px;border:none;background:#fff;font-size:17px;cursor:pointer;color:var(--green);font-weight:700;}
   .qty button:hover{background:#eef3ee;}
-  .qty .n{min-width:26px;text-align:center;font-weight:800;font-size:14px;}
+.qty .n{min-width:26px;text-align:center;font-weight:800;font-size:14px;background:#fff;}
   .card.selected .name{color:var(--coral);}
 
   #survey{display:none;max-width:680px;margin:0 auto;padding:48px 24px 90px;}
@@ -156,16 +156,326 @@
   #mobile-msg h2{font-size:22px;font-weight:800;font-family:Georgia,serif;color:var(--green);margin-bottom:12px;}
   #mobile-msg p{font-size:15px;color:#4b5a4f;line-height:1.6;margin-bottom:10px;}
   @media(max-width:720px){#mobile-block{display:flex;}}
-  /* HOVER: blurred + name hidden by default, revealed on hover */
+/* HOVER: same holistic card as static, image blurs by default */
+  body.mode-hover .card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;padding-top:0;box-shadow:0 2px 16px rgba(60,40,20,.07);}
+  body.mode-hover .stage{border-radius:0;background:var(--cream);}
+  body.mode-hover .label{text-align:left;padding:12px 16px 0;margin-top:0;}
+  body.mode-hover .price{text-align:left;padding:0 16px;}
   body.mode-hover .can-img{filter:blur(8px);transition:filter .25s ease, transform .2s ease;}
-
   body.mode-hover .card:hover .can-img{filter:drop-shadow(0 10px 16px rgba(60,40,20,.16));}
+  body.mode-hover .note-hover{display:none !important;}
+  body.mode-hover .add-hover{display:none !important;}
+  body.mode-hover .qty{margin-top:8px;margin-bottom:14px;}
 
+  /* In hover mode: description+button occupy space but invisible — revealed on hover */
+  body.mode-hover .static-note{display:block;opacity:1;visibility:visible;position:relative;margin:10px 16px 0;padding-top:10px;border-top:1px solid var(--line);font-size:13px;line-height:1.55;color:#4b5a4f;text-align:left;transition:opacity .2s;}
+body.mode-hover .hover-info{
+    position:relative;
+    display:grid;
+    flex-direction:column;
+}
+body.mode-hover .card:not(:hover) .static-note{
+    color:transparent;
+}
+body.mode-hover .card:not(:hover) .hover-info::before{
+    content:"Discover the flavour";
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#888;
+    font-size:0.82rem;
+    font-style:italic;
+    text-align:center;
+    pointer-events:none;
+    transition:opacity .2s;
+}
+body.mode-hover .card:hover .static-note{
+    color:#4b5a4f;
+}
+body.mode-hover .card:hover .static-note,
+body.mode-hover .card:hover .add-static{
+
+    opacity:1;
+}
+body.mode-hover .card:hover .static-note::before{
+    opacity: 0;
+}
+  body.mode-hover .add-static{display:block;visibility:hidden;opacity:0;margin:10px 16px 12px;width:calc(100% - 32px);background:var(--green-btn);color:#fff;border:none;border-radius:22px;padding:11px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;transition:opacity .2s;}
+  body.mode-hover .card:hover .static-note{visibility:visible;opacity:1;}
+  body.mode-hover .card:hover .add-static{visibility:visible;opacity:1;}
+  body.mode-hover .card:hover .add-static:hover{background:var(--coral);}
+
+  /* name-row: No.X and name share the same grid cell, fade between them */
+  .name-row{display:grid;padding:0 16px;margin-top:2px;}
+  .name-row > *{grid-area:1/1;font-size:17px;font-weight:700;font-family:Georgia,serif;color:var(--green);transition:opacity .2s;margin-top:0;padding:0;}
+  .name-row .num-id{opacity:0;} /* hidden in static */
+  body.mode-hover .name-row .num-id{opacity:1;}
+  body.mode-hover .name-row .name{opacity:0;}
+  body.mode-hover .card:hover .name-row .num-id{opacity:0;}
+  body.mode-hover .card:hover .name-row .name{opacity:1;}
 
   /* Fan Favorite badge */
-  .fav-badge{animation: fadeIn 1s ease;position:absolute;top:8px;left:10px;background:#E8A93B;color:#fff;font-size:10px;font-weight:700;padding:4px 9px;border-radius:12px;z-index:4;letter-spacing:.02em;}
-  
-  body.mode-hover .card:hover .fav-badge{opacity:0;transform:translateY(-10%);transition:opacity .18s ease;}
+  .fav-badge{position:absolute;top:8px;left:10px;background:#E8A93B;color:#fff;font-size:10px;font-weight:700;padding:4px 9px;border-radius:12px;z-index:4;letter-spacing:.02em;}
+
+/* =========================
+   INTRO PAGE
+========================= */
+
+#intro{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100svh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:clamp(16px,2vh,32px);
+    background:
+        radial-gradient(circle at top right,#f8ead1 0%,transparent 40%),
+        radial-gradient(circle at bottom left,#f2dfbf 0%,transparent 35%),
+        var(--cream);
+}
+
+#intro-card{
+    width:min(1180px,100%);
+    height:min(92svh,820px);
+    display:grid;
+    grid-template-columns:3fr 1fr;
+    background:white;
+    border-radius:32px;
+    overflow:hidden;
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.08),
+        0 3px 10px rgba(0,0,0,.04);
+}
+
+#intro-left{
+    padding:clamp(20px,2.5vh,36px) clamp(28px,3vw,48px);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.intro-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:#eef6f1;
+    color:var(--green);
+    font-size:13px;
+    font-weight:700;
+    border-radius:999px;
+    padding:8px 16px;
+    width:max-content;
+    margin-bottom:22px;
+}
+
+#intro-left h1{
+    font-family:Georgia,serif;
+    font-size:clamp(32px,2.8vw,46px);
+    margin-bottom:0.5rem;
+    margin-top: 1rem;
+    line-height:1.05;
+    line-height:1.05;
+    color:var(--green);
+}
+
+.intro-desc{
+    font-size:16px;
+    line-height:1.55;
+
+    color:#536257;
+    max-width:50rem;
+}
+
+.intro-highlights{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+    margin-bottom:40px;
+}
+
+.highlight{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    background:#faf7f1;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:14px;
+}
+
+.highlight-icon{
+    width:40px;
+    height:40px;
+    border-radius:14px;
+    background:#1f4733;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    flex-shrink:0;
+}
+
+.highlight h3{
+    font-size:14px;
+    color:var(--green);
+    margin-bottom:4px;
+}
+
+.highlight p{
+    font-size:12px;
+    color:#66746a;
+    line-height:1.5;
+}
+
+.start-btn{
+    width:240px;
+    height:54px;
+    font-size:17px;
+    border:none;
+    border-radius:999px;
+    background:var(--green);
+    color:white;
+    font-weight:700;
+    cursor:pointer;
+    transition:.25s;
+    box-shadow:0 10px 25px rgba(31,71,51,.25);
+}
+
+.start-btn:hover{
+    transform:translateY(-3px);
+    background:var(--coral);
+    box-shadow:0 18px 35px rgba(225,90,60,.25);
+}
+
+#intro-right{
+    background:linear-gradient(145deg,#1f4733,#244d39);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:clamp(24px,3vw,40px);
+}
+
+.can-collage{
+    position:relative;
+    width:100%;
+    height:100%;
+}
+
+.can-collage img{
+    position:absolute;
+    width:clamp(95px,10vw,160px);
+    filter:drop-shadow(0 18px 28px rgba(0,0,0,.35));
+    transition:.35s;
+}
+
+.can-collage img:hover{
+    transform:translateY(-8px) scale(1.05);
+}
+
+.can1{top:8%;left:18%;transform:rotate(-15deg);}
+.can2{top:28%;right:18%;transform:rotate(14deg);}
+.can3{bottom:10%;left:26%;transform:rotate(8deg);}
+.can4{bottom:22%;right:12%;transform:rotate(-10deg);}
+
+.intro-badge{
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-evenly;
+    align-items:center;
+}
+
+.intro-stat{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    text-align:center;
+}
+.intro-stat:not(:last-child){
+    position:relative;
+}
+
+.intro-stat:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    bottom:-40px;
+    left:50%;
+    transform:translateX(-50%);
+    width:70px;
+    height:1px;
+    background:rgba(255,255,255,.15);
+}
+
+.intro-stat strong{
+
+    font-family:Georgia,serif;
+    font-size:clamp(42px,5vw,64px);
+    color:white;
+    line-height:1;
+}
+
+.intro-stat span{
+    color:rgba(255,255,255,.72);
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    font-size:13px;
+    font-weight:600;
+}
+.instruction-box{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin:10px 0;
+}
+
+.instruction-item{
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    background:#faf7f1;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:14px 18px;
+}
+
+.instruction-number{
+    width:34px;
+    height:34px;
+    flex-shrink:0;
+    border-radius:50%;
+    background:var(--green);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:15px;
+}
+
+.instruction-item strong{
+    color:var(--green);
+}
+
+.intro-note{
+    margin:0 0 10px;
+    color:#4f5d52;
+    font-size:15px;
+}
+
+.intro-footer{
+    font-style:italic;
+    color:#777;
+    font-size:14px;
+    margin-bottom:1rem;
+}
+
 </style>
 </head>
 <body>
@@ -179,7 +489,92 @@
   </div>
 </div>
 
-<div id="store">
+<div id="intro">
+
+<div id="intro-card">
+
+<div id="intro-left">
+
+
+<h1>Welcome to the FizzLab store</h1>
+
+<p class="intro-desc">
+Thank you for taking part in this study. In a moment, you'll browse an online store for FizzLab, <strong>a sparkling prebiotic soda brand with 20 different flavours.</strong>
+</p>
+
+<div class="instruction-box">
+
+    <div class="instruction-item">
+        <div class="instruction-number">1</div>
+        <div>
+            <strong>Choose exactly 10 cans.</strong><br>
+            Imagine you're stocking up on drinks to keep at home for the week ahead.
+        </div>
+    </div>
+
+    <div class="instruction-item">
+        <div class="instruction-number">2</div>
+        <div>
+            <strong>Build any selection you like.</strong><br>
+            You may choose several cans of the same flavour, a mixture of different
+            flavours, or anything in between.
+        </div>
+    </div>
+
+    <div class="instruction-item">
+        <div class="instruction-number">3</div>
+        <div>
+            <strong>There are no right or wrong choices.</strong><br>
+            Every can costs <strong>$2.50</strong>, so price should not influence your decision.
+        </div>
+    </div>
+
+</div>
+
+<p class="intro-note">
+After selecting 10 cans, you'll answer a few short questions about your shopping experience.
+</p>
+
+<p class="intro-footer">
+Please complete this study using a computer with a mouse or trackpad.
+</p>
+
+<button class="start-btn" onclick="startStudy()">
+Start Shopping →
+</button>
+
+</div>
+
+<div id="intro-right">
+
+
+
+<div class="intro-badge">
+
+<div class="intro-stat">
+<strong>20</strong>
+<span>Flavours</span>
+</div>
+
+<div class="intro-stat">
+<strong>10</strong>
+<span>Cans</span>
+</div>
+
+<div class="intro-stat">
+<strong>$2.50</strong>
+<span>Each</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="store" style="display:none">
   <div class="promobar">Sparkling prebiotic soda · 2–5g sugar · 9g fiber · made with plant fiber</div>
   <header>
     <div class="nav">
@@ -285,7 +680,7 @@ const viewedInfo=new Set();
 const hoverLog=[];
 let mode=Math.random()<0.5?'hover':'static';
 document.body.className='mode-'+mode;
-const startTime=Date.now();
+let startTime;
 let firstSelect=null, selectionChanges=0;
 
 function canImg(f){
@@ -302,14 +697,28 @@ function render(){
       <div class="stage" onclick="onStageClick(${f.id})">
         ${canImg(f)}
         ${f.popular?'<div class="fav-badge">Fan Favorite</div>':''}
-        <div class="note-hover">${f.notes}</div>
+        <div class="note-hover"><div class="note-name">${f.name}</div>${f.notes}</div>
         <button class="add-hover" onclick="event.stopPropagation();chg(${f.id},1)">Add a can</button>
       </div>
       <div class="label">9g Fiber</div>
-      <div class="name">${f.name}</div>
+      <div class="name-row">
+        <div class="num-id">No. ${String(f.id).padStart(2,'0')}</div>
+        <div class="name">${f.name}</div>
+      </div>
       <div class="price">$2.50</div>
-      <div class="static-note">${f.notes}</div>
-      <button class="add-static" onclick="chg(${f.id},1)">Add a can</button>
+      
+      <div class="hover-info">
+
+          <div class="static-note">
+              ${f.notes}
+          </div>
+
+          <button class="add-static"
+                  onclick="chg(${f.id},1)">
+              Add a can
+          </button>
+
+      </div>
       <div class="qty" id="qty${f.id}"><button onclick="chg(${f.id},-1)">−</button><span class="n" id="n${f.id}">0</span><button onclick="chg(${f.id},1)">+</button></div>
     </div>`;
   });
@@ -463,6 +872,11 @@ function submitSurvey(){
   sendToGoogleSheet(data);
   document.getElementById('survey').classList.remove('show');
   document.getElementById('done').classList.add('show');window.scrollTo(0,0);
+}
+function startStudy(){
+  startTime=Date.now();
+  document.getElementById('intro').style.display='none';
+  document.getElementById('store').style.display='block';
 }
 render();updateProgress();
 </script>
